@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Link from '../components/Link';
 import accounting from 'accounting';
-import InputMask from 'react-input-mask';
 
 import Checkbox from './Checkbox';
 
@@ -159,9 +158,9 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
         </div>
         <div className="Place__choice-item">
           <span>Назначить</span>
-          <InputMask
+          <input
             value={time}
-            mask="99:99"
+            type={'time'}
             onFocus={() => {
               setFasterStorage(false);
             }}

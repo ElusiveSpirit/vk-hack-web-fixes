@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env PORT=10888 react-scripts start",
     "build": "react-scripts build",
-    "surge-deploy": "npm run build && surge ./build --domain kozodoi-club-hack.surge.sh"
+    "surge-deploy": "yarn build && surge ./build --domain dream-team-sql-injection.surge.sh"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +29,6 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
-    "react-input-mask": "^2.0.4",
     "react-router": "^5.1.1",
     "react-router-dom": "^5.1.1"
   },
