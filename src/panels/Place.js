@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import Link from '../components/Link';
 import accounting from 'accounting';
 // import PropTypes from 'prop-types';
 
@@ -25,6 +25,7 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) 
 
     return accounting.formatNumber(result, 0, ' ');
   }, [ order, item ]);
+  const emptyBasket = Number(price) === 0;
 
   return (
     <div className="Place">
@@ -101,7 +102,11 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) 
         )))}
       </ul>
       <footer className="Place__footer">
-        <Link to={`/basket/${area.id}/${item.id}`} className="Place__order">
+        <Link
+            to={`/basket/${area.id}/${item.id}`}
+            disabled={emptyBasket}
+            className="Place__order"
+        >
           Оформить заказ ({price})
         </Link>
       </footer>

@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import Link from '../components/Link';
 import accounting from 'accounting';
 
 import Checkbox from './Checkbox';
@@ -33,6 +34,7 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
 
     return [ accounting.formatNumber(result, 0, ' '), products ];
   }, [ order, item ]);
+  const emptyBasket = products.length === 0;
 
   return (
     <div className="Place">
@@ -147,7 +149,11 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
         </div>
       </div>
       <footer className="Place__footer">
-        <Link to={`/order/${area.id}/${item.id}`} className="Place__order">
+        <Link
+            to={`/order/${area.id}/${item.id}`}
+            disabled={emptyBasket}
+            className="Place__order"
+        >
           Оплатить {price}
         </Link>
       </footer>
