@@ -8,6 +8,7 @@ import './place.css';
 const Order = ({ match: { params: { areaId, itemId }}, history, foodAreas, setActiveOrder }) => {
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
+  localStorage.removeItem('orderOptions');
 
   return (
     <div className="Place Place_order">

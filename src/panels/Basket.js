@@ -9,10 +9,49 @@ import edit from '../img/edit.svg';
 import './place.css';
 
 
+const getOptions = () => {
+  const options = localStorage.getItem('orderOptions');
+  return options ? JSON.parse(options) : {
+    faster: true,
+    time: '',
+    selfService: false,
+  };
+}
+
+const saveOptions = options => {
+  localStorage.setItem('orderOptions', JSON.stringify(options));
+}
+
+const clearOptions = options => {
+  localStorage.removeItem('orderOptions');
+}
+
 const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
-  const [ faster, setFaster ] = useState(true);
-  const [ time, setTime ] = useState('');
-  const [ selfService, setSelfService ] = useState(false);
+  const options = getOptions();
+  const [ faster, setFaster ] = useState(options.faster);
+  const [ time, setTime ] = useState(options.time);
+  const [ selfService, setSelfService ] = useState(options.selfService);
+  const setFasterStorage = v => {
+    setFaster(v)
+    saveOptions({
+      ...options,
+      faster: v
+    })
+  }
+  const setTimeStorage = v => {
+    setTime(v)
+    saveOptions({
+      ...options,
+      time: v
+    })
+  }
+  const setSelfServiceStorage = v => {
+    setSelfService(v)
+    saveOptions({
+      ...options,
+      selfService: v
+    })
+  }
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
 
@@ -113,10 +152,10 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
             checked={faster} 
             onToggle={() => {
               if (faster) {
-                setFaster(false);
+                setFasterStorage(false);
               } else {
-                setTime('');
-                setFaster(true);
+                setTimeStorage('');
+                setFasterStorage(true);
               }
             }}
           />
@@ -126,26 +165,26 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
           <input
             value={time}
             onFocus={() => {
-              setFaster(false);
+              setFasterStorage(false);
             }}
             onChange={event => {
-              setFaster(false);
-              setTime(event.target.value);
+              setFasterStorage(false);
+              setTimeStorage(event.target.value);
             }}
             onBlur={() => {
               if (time) {
-                setFaster(false);
+                setFasterStorage(false);
               }
             }}
           />
         </div>
         <div className="Place__choice-item">
           <h3>С собой</h3>
-          <Checkbox checked={selfService} onToggle={() => setSelfService(!selfService)} />
+          <Checkbox checked={selfService} onToggle={() => setSelfServiceStorage(!selfService)} />
         </div>
         <div className="Place__choice-item">
           <h3>На месте</h3>
-          <Checkbox checked={!selfService} onToggle={() => setSelfService(!setSelfService)} />
+          <Checkbox checked={!selfService} onToggle={() => setSelfServiceStorage(!selfService)} />
         </div>
       </div>
       <footer className="Place__footer">
