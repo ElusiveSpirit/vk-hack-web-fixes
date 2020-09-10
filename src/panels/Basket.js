@@ -22,10 +22,6 @@ const saveOptions = options => {
   localStorage.setItem('orderOptions', JSON.stringify(options));
 }
 
-const clearOptions = options => {
-  localStorage.removeItem('orderOptions');
-}
-
 const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
   const options = getOptions();
   const [ faster, setFaster ] = useState(options.faster);
