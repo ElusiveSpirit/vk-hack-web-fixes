@@ -5,7 +5,7 @@ import refresh from '../img/refresh-button.svg';
 import './orders.css';
 
 
-const Orders = ({ order, orderStatuses, foodAreas, setFinishedOrder, setActiveOrder }) => {
+const Orders = ({ order, orderStatuses, foodAreas, setFinishedOrder, setCancelledOrder, setActiveOrder }) => {
   const activeOrders = useMemo(() => {
     const activeOrdersList = Object.keys(orderStatuses)
       .filter(shopId => orderStatuses[shopId] === 'ACTIVE')
@@ -102,7 +102,7 @@ const Orders = ({ order, orderStatuses, foodAreas, setFinishedOrder, setActiveOr
             <button
               className="Orders__cancel"
               onClick={() => {
-                setFinishedOrder({ itemId: order.shopId });
+                setCancelledOrder({ itemId: order.shopId });
               }}
             >
               Отм.
@@ -142,6 +142,7 @@ const Orders = ({ order, orderStatuses, foodAreas, setFinishedOrder, setActiveOr
 
 Orders.defaultProps = {
   setFinishedOrder: () => {},
+  setCancelledOrder: () => {},
   setActiveOrder: () => {},
 };
 
